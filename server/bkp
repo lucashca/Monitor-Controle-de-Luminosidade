@@ -1,0 +1,44 @@
+{
+  "dados": [
+    {
+      "medida": "ldrValor_qc",
+      "title": "Quarto Casal",
+      "unidade": "lms"
+    },
+    {
+      "medida": "ldrValor_qs",
+      "title": "Quarto Solteiro",
+      "unidade": "lms"
+    },
+    {
+      "medida": "ldrValor_co",
+      "title": "Cozinha",
+      "unidade": "lms"
+    },
+    {
+      "medida": "ldrValor_sl",
+      "title": "Sala",
+      "unidade": "lms"
+    },
+    {
+      "medida": "ledPower_qc",
+      "title": "Led Quarto Casal",
+      "unidade": "%"
+    },
+    {
+      "medida": "ledPower_qs",
+      "title": "Led Quarto Solteiro",
+      "unidade": "%"
+    },
+    {
+      "medida": "ledPower_co",
+      "title": "Led Cozinha",
+      "unidade": "%"
+    },
+    {
+      "medida": "ledPower_sl",
+      "title": "Led Sala",
+      "unidade": "%"
+    }
+  ]
+}

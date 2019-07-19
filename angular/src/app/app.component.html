@@ -1,0 +1,308 @@
+<!--The content below is only a placeholder and can be replaced.-->
+
+
+<!--The content below is only a placeholder and can be replaced.-->
+
+
+
+
+<div class="container">
+ 
+        <div *ngIf="showPainel" class="box">
+           
+          <mat-tab-group  #tabGroup  (selectedTabChange)="onClickTab($event)" >
+            
+                <mat-tab *ngIf="chart_qc" label="Gráficos">
+                        <div class="chartsGroup">
+                                <div *ngIf="chart_qc" class="chart1">
+                                        <h3>Quarto Casal - 
+                                            Led {{houseDataSet[0].dataSet[0].dataSet[houseDataSet[0].dataSet[0].dataSet.length-1]}}%
+                                            Sensor {{houseDataSet[1].dataSet[0].dataSet[houseDataSet[1].dataSet[0].dataSet.length-1]}}
+                                            SetPoint {{setPoint_qc}}   
+                                        </h3>
+                                        <canvas #canvas_qc id="canvas_qc">{{ chart_qc }}</canvas>
+                                </div>
+                                <div *ngIf="chart_qs"  class="chart1">
+                                        <h3>Quarto Solteiro
+                                                Led {{houseDataSet[0].dataSet[1].dataSet[houseDataSet[0].dataSet[1].dataSet.length-1]}}%
+                                                Sensor {{houseDataSet[1].dataSet[1].dataSet[houseDataSet[1].dataSet[1].dataSet.length-1]}}
+                                                SetPoint {{setPoint_qs}}    
+                                        </h3>
+                                        <canvas #canvas_qs id="canvas_qs">{{ chart_qs }}</canvas>
+                                </div>                       
+                        </div>
+                        <div class="inputGroup">
+                            <br>
+                                <h4>Quarto Casal</h4>
+                                <input class="inputItem" type="number" name="setPoint_qc" id="setPoint_qc" [(ngModel)] ='setPointqc'  placeholder="SetPoint">
+                                <h4>Quarto Solteiro</h4>
+                                <input class="inputItem"  type="number" name="setPoint_qs" id="setPoint_qs" [(ngModel)] ='setPointqs'  placeholder="SetPoint">
+                                <h4>Cozinha</h4>
+                                <input class="inputItem"  type="number" name="setPoint_co" id="setPoint_co" [(ngModel)] ='setPointco'  placeholder="SetPoint">
+                                <h4>Sala</h4>
+                                <input class="inputItem"  type="number" name="setPoint_sl" id="setPoint_sl" [(ngModel)] ='setPointsl' placeholder="SetPoint">
+                            
+                                <input class="inputItemBtn"  type="button" value="Confirmar" (click) = "onClickConfirm()">
+                        </div>        
+                       
+                         <div class="chartsGroup" style="margin-top:-100px;">
+                            <div *ngIf="chart_co"  class="chart1">
+                                <h3>Sala
+                                        Led {{houseDataSet[0].dataSet[3].dataSet[houseDataSet[0].dataSet[3].dataSet.length-1]}}%
+                                        Sensor {{houseDataSet[1].dataSet[3].dataSet[houseDataSet[1].dataSet[3].dataSet.length-1]}}
+                                        SetPoint {{setPoint_sl}}   
+                                      
+                                </h3>
+                                <canvas #canvas_sl id="canvas_sl">{{ chart_sl }}</canvas>
+                            </div>
+                                <div *ngIf="chart_sl"  class="chart1">
+                                        <h3>
+                                            Cozinha - 
+                                            Led {{houseDataSet[0].dataSet[2].dataSet[houseDataSet[0].dataSet[2].dataSet.length-1]}}%
+                                            Sensor {{houseDataSet[1].dataSet[2].dataSet[houseDataSet[1].dataSet[2].dataSet.length-1]}}  
+                                            SetPoint {{setPoint_co}} 
+                                            </h3>
+                                            <canvas #canvas_co id="canvas_co">{{ chart_co }}</canvas>
+                                      
+                                </div>
+                               
+                        </div>
+
+                        <div class="inputGroup">
+                           
+                            <h4>Quantidade de amostras</h4>
+                            <input class="inputItem"  type="number" name="larguraGrafo" id="larguraGrafo" [(ngModel)] ='larguraGrafo' placeholder="Quantidade de amostras">
+                            
+                            <h4>Frequencia de atualização em segundos</h4>
+                            <input class="inputItem"  type="number" name="frequenciaAtualizacaodeDaods" id="frequenciaAtualizacaodeDaods" [(ngModel)] ='frequenciaAtualizacaodeDaods' placeholder="Quantidade de amostras">
+                        
+                            <h4>Faixa de Precisão</h4>
+                            <input class="inputItem"  type="number" name="variacao" id="variacao" [(ngModel)] ='variacao' placeholder="Faixa de precisão">
+                            <h4>Precisão sensor</h4>
+                            <input class="inputItem"  type="number" name="sensorPrecision" id="sensorPrecision" [(ngModel)] ='sensorPrecision' placeholder="Precisão sensor">
+                        
+                            <input class="inputItemBtn"  type="button" value="Calibrar" (click) = "onClickConfirmFaixa()">
+                            <input class="inputItemBtn"  type="button" value="Converter" (click) = "makeConversion = !makeConversion">
+                        
+                        </div>
+                       
+                        
+                </mat-tab> 
+                    
+
+            <mat-tab label="Gráfico Quarto Casal">
+                <div *ngIf="chart_qc_solo" style="padding: 2% 8% 0% 8%;">
+                        <h3>Quarto Casal - 
+                                Led {{houseDataSet[0].dataSet[0].dataSet[houseDataSet[0].dataSet[0].dataSet.length-1]}}%
+                                Sensor {{houseDataSet[1].dataSet[0].dataSet[houseDataSet[1].dataSet[0].dataSet.length-1]}}
+                                SetPoint {{setPoint_qc}}      
+                            </h3>
+               
+<div class="container">
+ 
+
+    <div *ngIf="showPainel" class="box">
+
+    
+      <mat-tab-group  #tabGroup  (selectedTabChange)="onClickTab($event)" >
+
+        <mat-tab *ngFor="let labels of medidasLabels; let index = index" [label]="labels.title" [id]="labels.medida">
+            <div class="box-content">
+                <div class="box-row box-title"> {{labels.title}}</div>
+                <div class="box-row box-medida">{{medidasValues[labels.medida].data}} {{labels.unidade}}</div>
+            </div>
+        </mat-tab>
+
+        <mat-tab *ngIf="charts" label="Chart">
+            <div *ngIf="charts">
+
+            <canvas id="canvas">{{charts}}</canvas>
+        </div>
+               
+    
+            </mat-tab> <!-- Balança -->
+            
+
+        <mat-tab id="balanca" label="Balança">
+            <div class="box-content">
+                <div class="box-row box-title">Balança digital</div>
+                <div class="box-row box-medida">{{massa}}g</div>
+                <button class="box-button"  mat-raised-button color="primary">Tara</button>
+            </div>
+
+
+        </mat-tab> <!-- Balança -->
+        <mat-tab label="Ângulo">
+            <div class="box-content">
+                <div class="box-row box-title">Medida do Ângulo</div>
+                <canvas id="pieChart"></canvas>
+                <div class="{{ang>180 ? 'box-angule-top' : 'box-angule-down'}}">{{ang}}°</div>
+            </div>
+
+        </mat-tab><!-- Graus -->
+        <mat-tab label="Configuração">
+            <div class="box-content">
+                   
+
+                <div class="box-row box-title">Detalhes da conexão</div>
+                <mat-form-field class="box-form-field">
+                    <mat-label>Selecione o arduino</mat-label>
+                    <mat-select (selectionChange)="onArduinoSelectChange($event.value)">
+                        
+                        <mat-option *ngFor="let dev of devices" [value]="dev.comName">
+                        {{dev.comName}} - {{dev.manufacturer}}
+                        </mat-option>
+                    </mat-select>    
+                </mat-form-field>
+                
+
+            </div>
+
+
+        </mat-tab><!-- Detalhes -->
+        <mat-tab label="Detalhes">
+            <div class="box-content">
+                <div class="box-row box-title">Detalhes da conexão</div>
+                <div class="box-row"></div>
+                <div class="box-row box-text">Endereço WEB: <b>{{ipAddress}}</b></div>
+                <div class="box-row box-text">Placa: <b>{{placa}}</b> </div>
+                <div class="box-row box-text">Porta Serial: <b>{{porta}}</b></div>
+                <div class="box-row box-text">Frequência: <b>{{frequencia}}</b></div>
+
+            </div>
+
+
+        </mat-tab><!-- Detalhes -->
+
+        <mat-tab label="Cadastrar">
+                <div class="box-row box-title">Adicionar Medida</div>
+                <form class="box-content">
+                    <mat-form-field class="box-form-field">
+                        <input matInput placeholder="Título da medida" [(ngModel)]="cadastroMedida.title" name="title">
+                    </mat-form-field>
+                    <mat-form-field class="box-form-field">
+                        <input matInput placeholder="Título da tab" [(ngModel)]="cadastroMedida.tabTitle" name="tabTitle">
+                    </mat-form-field>
+                    <mat-form-field class="box-form-field">
+                        <input matInput placeholder="Chave da medida" [(ngModel)]="cadastroMedida.medida" name="medida">
+                    </mat-form-field>
+                    <mat-form-field class="box-form-field">
+                        <input matInput placeholder="Unidade" [(ngModel)]="cadastroMedida.unidade" name="unidade">
+                    </mat-form-field>
+                    <button class="box-button" (click)="cadastrarMedida()" mat-raised-button color="primary">Cadastrar</button>
+                    
+              </form>
+              
+
+        </mat-tab>
+
+      </mat-tab-group>
+    </div>
+    <div *ngIf="arduinoMsg" class="bottom-msg" class="{{arduinoError ? 'bottom-msg bottom-msg-error' : 'bottom-msg bottom-msg-success'}}">{{arduinoMsg}}</div>
+  </div>
+ 
+
+
+  <router-outlet></router-outlet>
+
+                        <canvas #canvas_qc_solo id="canvas_qc_solo">{{ chart_qc_solo }}</canvas>
+                </div>
+            </mat-tab> 
+            
+            <mat-tab  label="Gráfico Quarto Solteiro">
+                    <div *ngIf="chart_qs_solo" style="padding: 2% 8% 0% 8%;">
+                            <h3>Quarto Solteiro
+                                    Led {{houseDataSet[0].dataSet[1].dataSet[houseDataSet[0].dataSet[1].dataSet.length-1]}}%
+                                    Sensor {{houseDataSet[1].dataSet[1].dataSet[houseDataSet[1].dataSet[1].dataSet.length-1]}} 
+                                    SetPoint {{setPoint_qs}}   
+                                </h3>
+                
+                            <canvas #canvas_qs_solo id="canvas_qs_solo">{{ chart_qs_solo }}</canvas>
+                    </div>
+                </mat-tab> 
+            
+                <mat-tab  label="Gráfico Cozinha">
+                    <div *ngIf="chart_co_solo" style="padding: 2% 8% 0% 8%;">
+                            <h3>Cozinha
+                                    Led {{houseDataSet[0].dataSet[3].dataSet[houseDataSet[0].dataSet[3].dataSet.length-1]}}%
+                                    Sensor {{houseDataSet[1].dataSet[3].dataSet[houseDataSet[1].dataSet[3].dataSet.length-1]}}   
+                                    SetPoint {{setPoint_co}}   
+                            </h3>
+                 
+                                <canvas #canvas_co_solo id="canvas_co_solo">{{ chart_co_solo }}</canvas>
+                    </div>
+                </mat-tab> 
+
+            <mat-tab  label="Gráfico Sala">
+                <div *ngIf="chart_sl_solo" style="padding: 2% 8% 0% 8%;">
+                        <h3>
+                                Cozinha - 
+                                Led {{houseDataSet[0].dataSet[2].dataSet[houseDataSet[0].dataSet[2].dataSet.length-1]}}%
+                                Sensor {{houseDataSet[1].dataSet[2].dataSet[houseDataSet[1].dataSet[2].dataSet.length-1]}}   
+                                SetPoint {{setPoint_sl}}     
+                            </h3>
+           
+                        <canvas #canvas_sl_solo id="canvas_sl_solo">{{ chart_sl_solo }}</canvas>
+                </div>
+            </mat-tab> 
+    
+           
+            
+            <mat-tab label="Configuração">
+                <div class="box-content">
+                    <div class="box-row box-title">Detalhes da conexão</div>
+                    <mat-form-field class="box-form-field">
+                        <mat-label>Selecione o arduino</mat-label>
+                        <mat-select (selectionChange)="onArduinoSelectChange($event.value)">
+                            <mat-option *ngFor="let dev of devices" [value]="dev.comName">
+                            {{dev.comName}} - {{dev.manufacturer}}
+                            </mat-option>
+                        </mat-select>    
+                    </mat-form-field>
+                </div>
+            </mat-tab><!-- Detalhes -->
+            <mat-tab label="Detalhes">
+                <div class="box-content">
+                    <div class="box-row box-title">Detalhes da conexão</div>
+                    <div class="box-row"></div>
+                    <div class="box-row box-text">Endereço WEB: <b>{{ipAddress}}</b></div>
+                    <div class="box-row box-text">Placa: <b>{{placa}}</b> </div>
+                    <div class="box-row box-text">Porta Serial: <b>{{porta}}</b></div>
+                    <div class="box-row box-text">Frequência: <b>{{frequencia}}</b></div>
+    
+                </div>
+    
+    
+            </mat-tab><!-- Detalhes -->
+    
+            <mat-tab label="Cadastrar">
+                    <div class="box-row box-title">Adicionar Medida</div>
+                    <form class="box-content">
+                        <mat-form-field class="box-form-field">
+                            <input matInput placeholder="Título da medida" [(ngModel)]="cadastroMedida.title" name="title">
+                        </mat-form-field>
+                        <mat-form-field class="box-form-field">
+                            <input matInput placeholder="Título da tab" [(ngModel)]="cadastroMedida.tabTitle" name="tabTitle">
+                        </mat-form-field>
+                        <mat-form-field class="box-form-field">
+                            <input matInput placeholder="Chave da medida" [(ngModel)]="cadastroMedida.medida" name="medida">
+                        </mat-form-field>
+                        <mat-form-field class="box-form-field">
+                            <input matInput placeholder="Unidade" [(ngModel)]="cadastroMedida.unidade" name="unidade">
+                        </mat-form-field>
+                        <button class="box-button" (click)="cadastrarMedida()" mat-raised-button color="primary">Cadastrar</button>
+                        
+                  </form>
+                  
+    
+            </mat-tab>
+    
+          </mat-tab-group>
+        </div>
+        <div *ngIf="arduinoMsg" class="bottom-msg" class="{{arduinoError ? 'bottom-msg bottom-msg-error' : 'bottom-msg bottom-msg-success'}}">{{arduinoMsg}}</div>
+      </div>
+     
+    
+    
+      <router-outlet></router-outlet>
+    

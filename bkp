@@ -1,0 +1,107 @@
+
+<div class="container">
+ 
+
+    <div *ngIf="showPainel" class="box">
+
+    
+      <mat-tab-group  #tabGroup  (selectedTabChange)="onClickTab($event)" >
+
+        <mat-tab *ngFor="let labels of medidasLabels; let index = index" [label]="labels.title" [id]="labels.medida">
+            <div class="box-content">
+                <div class="box-row box-title"> {{labels.title}}</div>
+                <div class="box-row box-medida">{{medidasValues[labels.medida].data}} {{labels.unidade}}</div>
+            </div>
+        </mat-tab>
+
+        <mat-tab *ngIf="charts" label="Chart">
+            <div *ngIf="charts">
+
+            <canvas id="canvas">{{charts}}</canvas>
+        </div>
+               
+    
+            </mat-tab> <!-- Balança -->
+            
+
+        <mat-tab id="balanca" label="Balança">
+            <div class="box-content">
+                <div class="box-row box-title">Balança digital</div>
+                <div class="box-row box-medida">{{massa}}g</div>
+                <button class="box-button"  mat-raised-button color="primary">Tara</button>
+            </div>
+
+
+        </mat-tab> <!-- Balança -->
+        <mat-tab label="Ângulo">
+            <div class="box-content">
+                <div class="box-row box-title">Medida do Ângulo</div>
+                <canvas id="pieChart"></canvas>
+                <div class="{{ang>180 ? 'box-angule-top' : 'box-angule-down'}}">{{ang}}°</div>
+            </div>
+
+        </mat-tab><!-- Graus -->
+        <mat-tab label="Configuração">
+            <div class="box-content">
+                   
+
+                <div class="box-row box-title">Detalhes da conexão</div>
+                <mat-form-field class="box-form-field">
+                    <mat-label>Selecione o arduino</mat-label>
+                    <mat-select (selectionChange)="onArduinoSelectChange($event.value)">
+                        
+                        <mat-option *ngFor="let dev of devices" [value]="dev.comName">
+                        {{dev.comName}} - {{dev.manufacturer}}
+                        </mat-option>
+                    </mat-select>    
+                </mat-form-field>
+                
+
+            </div>
+
+
+        </mat-tab><!-- Detalhes -->
+        <mat-tab label="Detalhes">
+            <div class="box-content">
+                <div class="box-row box-title">Detalhes da conexão</div>
+                <div class="box-row"></div>
+                <div class="box-row box-text">Endereço WEB: <b>{{ipAddress}}</b></div>
+                <div class="box-row box-text">Placa: <b>{{placa}}</b> </div>
+                <div class="box-row box-text">Porta Serial: <b>{{porta}}</b></div>
+                <div class="box-row box-text">Frequência: <b>{{frequencia}}</b></div>
+
+            </div>
+
+
+        </mat-tab><!-- Detalhes -->
+
+        <mat-tab label="Cadastrar">
+                <div class="box-row box-title">Adicionar Medida</div>
+                <form class="box-content">
+                    <mat-form-field class="box-form-field">
+                        <input matInput placeholder="Título da medida" [(ngModel)]="cadastroMedida.title" name="title">
+                    </mat-form-field>
+                    <mat-form-field class="box-form-field">
+                        <input matInput placeholder="Título da tab" [(ngModel)]="cadastroMedida.tabTitle" name="tabTitle">
+                    </mat-form-field>
+                    <mat-form-field class="box-form-field">
+                        <input matInput placeholder="Chave da medida" [(ngModel)]="cadastroMedida.medida" name="medida">
+                    </mat-form-field>
+                    <mat-form-field class="box-form-field">
+                        <input matInput placeholder="Unidade" [(ngModel)]="cadastroMedida.unidade" name="unidade">
+                    </mat-form-field>
+                    <button class="box-button" (click)="cadastrarMedida()" mat-raised-button color="primary">Cadastrar</button>
+                    
+              </form>
+              
+
+        </mat-tab>
+
+      </mat-tab-group>
+    </div>
+    <div *ngIf="arduinoMsg" class="bottom-msg" class="{{arduinoError ? 'bottom-msg bottom-msg-error' : 'bottom-msg bottom-msg-success'}}">{{arduinoMsg}}</div>
+  </div>
+ 
+
+
+  <router-outlet></router-outlet>
